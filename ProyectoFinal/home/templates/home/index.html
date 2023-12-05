@@ -1,0 +1,29 @@
+{% extends 'home/layout.html' %}
+
+{% block title_tab %}
+    Home
+{% endblock %}
+
+{% block title %}
+Let's GO, Let's RYDE
+{% endblock %}
+
+{% block subtitle %}
+and discover the world together
+{% endblock %}
+
+
+
+{% block main %}
+    <h1>
+        Latest Posts
+    </h1>
+
+    <section>
+        
+        {% for post in posts %}
+            {% include 'home/card.html' with post=post %}
+        {% endfor %}
+
+    </section>
+{% endblock %}

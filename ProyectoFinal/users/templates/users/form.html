@@ -1,0 +1,43 @@
+{% extends 'home/layout.html' %}
+
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block subtitle %}
+    And enjoy all our posts!
+{% endblock %}
+
+
+
+{% block main %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="fieldWrapper">
+            <label for="first_name">First name:</label>
+            {{ form.first_name }}
+        </div>
+        <div class="fieldWrapper">
+            <label for="last_name">Last name:</label>
+            {{ form.last_name }}
+        </div>
+        <div class="fieldWrapper">
+            <label for="birthday">Date of birth:</label>
+            {{ form.birthday }}
+        </div>
+        <div class="fieldWrapper">
+            <label for="country">Country:</label>
+            {{ form.country }}
+        </div>
+
+        <button type="submit">Create</button>
+
+    </form>
+
+{% endblock main %}
+
+{% block footer_container %}
+{% endblock footer_container %}
