@@ -13,17 +13,22 @@ and discover the world together
 {% endblock %}
 
 
-
 {% block main %}
     <h1>
         Latest Posts
     </h1>
 
     <section>
-        
-        {% for post in posts %}
-            {% include 'home/card.html' with post=post %}
-        {% endfor %}
+        {% if posts %}
+
+            {% for post in posts %}
+                {% include 'home/card.html' with post=post %}
+            {% endfor %}
+
+        {% else %}
+            <div>No posts found</div>
+        {% endif %}
 
     </section>
+
 {% endblock %}

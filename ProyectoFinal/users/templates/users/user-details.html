@@ -1,0 +1,50 @@
+{% extends 'users/layout.html' %}
+
+{% block title_tab %}
+    User
+{% endblock %}
+
+{% block main %}
+<div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper" style="text-align: center; width: 700px; margin: 30px auto; background: #fff; padding: 20px; box-shadow: 0 1px 1px rgba(0,0,0,.05); border-radius: 25px; position: relative;">
+            
+            <a href="{% url 'home:index' %}" style='font-size:20px; color: inherit;'>
+                <span style='font-size:20px; position: absolute; right: 20px; top: 14px'>&#10006;</span>
+            </a>
+
+            <div class="table-title" style="padding-bottom: 10px;margin: 0 0 10px;">
+                <div class="row">
+                    <div><h2 style="margin: 36px 0 0; font-size: 30px;">{{user.first_name}} <b>{{user.last_name}}</b></h2></div>
+                </div>
+            </div>
+
+
+            {% if user == request.user %}
+            <div>
+                <a href="{% url 'users:user-avatar' %}">
+                    <img src="..{{ avatar.image.url }}" onerror="this.onerror=null; this.src='../media/avatars/profile.png';" style="height: 200px; width: auto; border-radius: 50%; vertical-align: middle; margin-top: 10px; margin-bottom: 30px;"/>
+                </a>
+            </div>
+            {% else %}
+            <div>
+                <img src="..{{ avatar.image.url }}" onerror="this.onerror=null; this.src='../media/avatars/profile.png';" style="height: 200px; width: auto; border-radius: 50%; vertical-align: middle; margin-top: 10px; margin-bottom: 30px;"/>
+            </div>
+            {% endif %}
+
+
+            <div>
+                <strong>Username: </strong> {{user.username}}
+            </div>
+            <div>
+                <strong>Email: </strong>{{user.email}}
+            </div>
+            <div>
+                <strong>Last login: </strong>{{user.last_login}}
+            </div>
+
+
+        </div>
+    </div>
+</div>  
+{% endblock %}

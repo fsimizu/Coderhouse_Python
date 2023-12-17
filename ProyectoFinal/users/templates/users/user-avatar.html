@@ -1,0 +1,31 @@
+{% extends 'users/layout.html' %}
+
+{% block title_tab %}
+    User
+{% endblock %}
+
+{% block main %}
+<div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper" style="text-align: center; width: 700px; margin: 30px auto; background: #fff; padding: 20px; box-shadow: 0 1px 1px rgba(0,0,0,.05); border-radius: 25px; position: relative;">
+            
+            <a href="{% url 'users:user-details' user.id %}" style='font-size:20px; color: inherit;'>
+                <span style='font-size:20px; position: absolute; right: 20px; top: 14px'>&#10006;</span>
+            </a>
+
+            <div class="table-title" style="padding-bottom: 10px;margin: 0 0 10px;">
+                <div class="row">
+                    <div><h4 style="margin: 36px 0 0;">Upload profile photo for <b>{{user.first_name}} {{user.last_name}}</b></h4></div>
+                </div>
+            </div>
+
+            <form action="{% url 'users:user-avatar' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Upload" class="btn btn-primary" style="padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+            </form>
+
+        </div>
+    </div>
+</div>  
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'users/layout.html' %}
+
+{% block title_tab %}
+    User
+{% endblock %}
+
+{% block main %}
+
+<div class="container-lg">
+
+    <div style="z-index: 10; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-color: rgba(18, 18, 18, 0.8); display: flex; justify-content: center; align-items:flex-start;">
+        <form method="post" style="background-color: lightgray; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 30vh;">
+            {% csrf_token %}
+            <p>Are you sure you want to delete <strong>{{ object }}</strong>?</p>
+            <div>
+                <input class="btn btn-danger" type="submit" value="Confirm" style="border-radius: 10px;">
+                <a href="/" class="btn btn-primary" style="border-radius: 10px;">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <div class="table-wrapper" style="width: 1000px; margin: 30px auto; background: #fff; padding: 20px; box-shadow: 0 1px 1px rgba(0,0,0,.05); border-radius: 25px; position: relative;">
+            
+            <a href="{% url 'users:index' %}" style='font-size:20px; color: inherit;'>
+                <span style='font-size:20px; position: absolute; right: 20px; top: 14px'>&#10006;</span>
+            </a>
+
+            <div class="table-title" style="padding-bottom: 10px;margin: 0 0 10px;">
+                <div class="row">
+                    <div class="col-sm-8"><h2 style="margin: 6px 0 0; font-size: 22px;">User <b>Edit</b></h2></div>
+
+                </div>
+            </div>
+
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                
+                    <form method="POST" action="{% url 'users:user-edit' user.pk %}">
+                        {% csrf_token %}
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>{{ user.pk }}</td>
+                                <td>
+                                    {{ user.username }}
+                                </td>
+                                <td>
+                                    {{ user.first_name }}
+                                </td>
+                                <td>
+                                    {{ user.last_name }}
+                                </td>
+                                <td>
+                                    {{ user.email }}
+                                </td>
+                                <td><input type="submit" value="Save" class="btn btn-primary" style="padding: 5px 15px;"></input></td>
+
+                            </tr>
+
+                        </tbody>
+                    </form>
+            </table>
+        </div>
+    </div>
+</div>  
+
+
+{% endblock %}

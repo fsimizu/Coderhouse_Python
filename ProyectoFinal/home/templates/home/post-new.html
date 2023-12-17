@@ -1,0 +1,66 @@
+{% extends 'home/layout.html' %}
+
+{% if post %}
+
+    {% block title_tab %}
+        Post
+    {% endblock %}
+
+    {% block title %}
+        New post
+    {% endblock %}
+
+    {% block subtitle %}
+        What's your story?
+    {% endblock %}
+
+    {% block imageUrl %}
+        style="background-size: cover; background-image: url('https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhdmVsJTIwYmxvZ3xlbnwwfHwwfHx8MA%3D%3D')"
+    {% endblock %}
+
+    {% block main %}
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        {% if form.errors %}
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                <div>
+                    <em style="color: red;">
+                        Invalid {{field}}: {{error}}
+                    </em>
+                </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Post Title</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="{{ form.title.name }}" placeholder="Title goes here">
+        </div>
+        
+        <div class="form-group">
+            <label for="exampleFormControlInput3">Sub-title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput3" name="{{ form.subtitle.name }}" placeholder="Subtitle goes here">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleFormControlInput2">Image URL</label>
+            <input type="text" class="form-control" id="exampleFormControlInput2" name="{{ form.imageUrl.name }}" placeholder="https://my-image.png">
+
+        </div>
+
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Tell me your story</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" name="{{ form.content.name }}" rows="20" placeholder="Once upon a time..."></textarea>
+        </div>
+
+
+        <div class="form-group" style="margin: 20px; text-align: center;">
+            <button type="submit" style="border-radius: 10px;" class="btn btn-primary" id="exampleFormControlInput3"> Create post</button>
+        </div>
+
+    </form>
+    {% endblock %}
+
+{% endif %}

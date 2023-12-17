@@ -1,12 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% block main %}
-    {% endblock %}
-</body>
-</html>
+{% extends 'users/layout.html' %}
+
+{% block title_tab %}
+    Users
+{% endblock %}
+
+{% block main %}
+
+    <div class="container-lg">
+        <div class="table-responsive">
+            <div class="table-wrapper" style="width: 700px; margin: 30px auto; background: #fff; padding: 20px; box-shadow: 0 1px 1px rgba(0,0,0,.05); border-radius: 25px; position: relative;">
+                
+                <a href="{% url 'home:index' %}" style='font-size:20px; color: inherit;'>
+                    <span style='font-size:20px; position: absolute; right: 20px; top: 14px'>&#10006;</span>
+                </a>
+
+                <div class="table-title" style="padding-bottom: 10px;margin: 0 0 10px;">
+                    <div class="row">
+                        <div class="col-sm-8"><h2 style="margin: 6px 0 0; font-size: 22px;">User <b>Details</b></h2></div>
+                        <!-- <div class="col-sm-4">
+                            <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                        </div> -->
+                    </div>
+                </div>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% if users %}
+                            {% for user in users %}
+                                {% if user.username != 'admin' %}
+                                    <tr>
+                                        <td>{{user.id}}</td>
+                                        <td>{{user.username}}</td>
+                                        <td>{{user.first_name}} {{user.last_name}}</td>
+                                        <td>{{user.email}}</td>
+                                        <td style="text-align: center;">
+                                            <a href="{% url 'users:user-details' user.id %}" class="details" title="Edit" data-toggle="tooltip"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="{% url 'users:user-edit' user.id %}" class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                            <a href="{% url 'users:user-delete' user.id %}"  class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+   
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>  
+
+{% endblock %}

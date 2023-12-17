@@ -1,0 +1,43 @@
+{% extends 'home/layout.html' %}
+
+{% if post %}
+
+    {% block title_tab %}
+        Post
+    {% endblock %}
+
+    {% block title %}
+        {{post.title}}
+    {% endblock %}
+
+    {% block subtitle %}
+        {{post.subtitle}}
+    {% endblock %}
+
+    {% block imageUrl %}
+    style="background-image: url({{post.imageUrl}})"
+    {% endblock %}
+
+    {% block main %}
+        <em class="post-meta" style="color: grey">
+            Posted by
+            <strong>{{post.user}}</strong>
+            on {{post.created_at}}
+        </em>
+
+        <p>
+            {{post.content}}
+        </p>
+    
+        {% if post.user == request.user or user.is_superuser %}
+            <div style="margin-bottom: 20px;">
+                <a class="btn btn-primary" style="border-radius: 10px;" href="{% url 'home:post-edit' post.id %}"><i style="margin-right: 10px;" class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+                <a class="btn btn-danger" style="border-radius: 10px;" href="{% url 'home:post-delete' post.id %}"><i style="margin-right: 10px;" class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+            </div>
+        {% endif %}
+
+    {% endblock %}
+
+
+{% endif %}
+

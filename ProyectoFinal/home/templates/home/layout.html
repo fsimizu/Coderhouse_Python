@@ -19,14 +19,14 @@
 </head>
 
 
-<body>
+<body style="position: relative; min-height: 100vh">
     <div class="container">
 
         {% include 'home/navbar.html' %}
 
         <!--  include 'home/header.html'  -->
 
-        <header class="masthead">
+        <header class="masthead"  {% block imageUrl %} style="background-image: url(https://bpb-us-w2.wpmucdn.com/blogs.umb.edu/dist/5/707/files/2017/10/travel-background-1469438756vUG-1e5byxw.jpg)" {% endblock %}>
             <div class="container position-relative px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">

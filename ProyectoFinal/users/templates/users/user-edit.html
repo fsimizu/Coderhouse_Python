@@ -1,0 +1,78 @@
+{% extends 'users/layout.html' %}
+
+{% block title_tab %}
+    User
+{% endblock %}
+
+{% block main %}
+
+<div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper" style="width: 1000px; margin: 30px auto; background: #fff; padding: 20px; box-shadow: 0 1px 1px rgba(0,0,0,.05); border-radius: 25px; position: relative;">
+            
+            <a href="{% url 'users:index' %}" style='font-size:20px; color: inherit;'>
+                <span style='font-size:20px; position: absolute; right: 20px; top: 14px'>&#10006;</span>
+            </a>
+
+            <div class="table-title" style="padding-bottom: 10px;margin: 0 0 10px;">
+                <div class="row">
+                    <div class="col-sm-8"><h2 style="margin: 6px 0 0; font-size: 22px;">User <b>Edit</b></h2></div>
+
+                </div>
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                
+                    <form method="POST" action="{% url 'users:user-edit' user.pk %}">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                <div>
+                                    <em style="color: red;">
+                                        Invalid {{field}}: {{error}}
+                                    </em>
+                                </div>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endif %}
+                        <tbody>
+
+                            <tr>
+
+                                <td>{{ user.pk }}</td>
+                                <td>
+                                    <input type="text" id="inputUserEdit1" name="{{ form.username.name }}" value="{{ form.username.value }}" placeholder="username" style="border: none; width: 100%">
+                                </td>
+                                <td>
+                                    <input type="text" id="inputUserEdit2" name="{{ form.first_name.name }}" value="{{ form.first_name.value }}" placeholder="first name" style="border: none; width: 100%">
+                                </td>
+                                <td>
+                                    <input type="text" id="inputUserEdit3" name="{{ form.last_name.name }}" value="{{ form.last_name.value }}" placeholder="last name" style="border: none; width: 100%">
+                                </td>
+                                <td>
+                                    <input type="email" id="inputUserEdit4" name="{{ form.email.name }}" value="{{ form.email.value }}" placeholder="email" style="border: none; width: 100%">
+                                </td>
+                                <td><input type="submit" value="Save" class="btn btn-primary" style="padding: 5px 15px;"></input></td>
+
+                            </tr>
+
+                        </tbody>
+                    </form>
+            </table>
+        </div>
+    </div>
+</div>  
+
+
+{% endblock %}

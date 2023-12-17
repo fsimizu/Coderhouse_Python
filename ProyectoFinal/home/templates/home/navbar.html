@@ -12,21 +12,46 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav py-4 py-lg-0 d-flex align-items-center">
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">About</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'products:index' %}">Products</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'posts:index' %}">New Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:about' %}">About</a></li>
+
+                {% if user.is_superuser %}
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'users:index' %}">Users</a></li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:post-new' %}">New Post</a></li>
+                {% endif %}
                 
-                <form class="d-flex flex-row" style="height: 36px; gap: 16px" method="POST">
-                    {% csrf_token %}
-                    <input name="{{ nav_form.title.name }}" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="border:none; font-size: 14px; border-radius: 5px;">
-                    <button class="btn btn-secondary d-flex align-items-center" type="submit" style="border-radius: 5px; font-size: 12px">SEARCH</button>
+
+                <form class="d-flex flex-row" style="height: 36px; gap: 16px" method="GET" action="{% url 'home:filtered-posts' %}">
+                    <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="border:1px solid lightgrey; font-size: 14px; border-radius: 5px;">
+                    <button class="btn btn-primary d-flex align-items-center" type="submit" style="border-radius: 5px; font-size: 12px">SEARCH</button>
                 </form>
                 
             </ul>
-            <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'users:login' %}">Login</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'users:register' %}">Register</a></li>                
-            </ul>
+
+            {% if user.is_authenticated %}
+
+                <ul class="navbar-nav ms-auto py-4 py-lg-0" style="text-align: center;">
+                    
+                    <li class="nav-item" style="display: flex; align-items: center; justify-content: center;">
+                        <a href="{% url 'users:user-details' user.id %}">
+                            <img src="{{ avatar.image.url }}" onerror="this.onerror=null; this.src='/media/avatars/profile.png';" style="height: 40px; width: auto; border-radius: 50%;"/>
+                        </a>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" style="pointer-events: none; cursor: default; opacity: 0.6;">Hi {{ user.username}}!</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'users:logout' %}">Logout</a></li>
+                </ul>
+
+
+                {% else %}
+                <ul class="navbar-nav ms-auto py-4 py-lg-0" style="text-align: center;">
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'users:login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'users:register' %}">Register</a></li>                
+                </ul>
+
+            {% endif %}
         </div>
     </div>
 </nav>
